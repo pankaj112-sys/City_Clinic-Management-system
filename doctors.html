@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors - Clinic Management System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="patient.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <h2>Clinic Management</h2>
+        </div>
+        <div class="nav-links">
+            <a href="index.html">Dashboard</a>
+            <a href="patients.html">Patients</a>
+            <a href="doctors.html">Doctors</a>
+            <a href="appointments.html">Appointments</a>
+            <a href="#">Logout</a>
+        </div>
+    </nav>
+    <div class="container">
+        <aside class="sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li>
+                    <a href="index.html">Dashboard</a>
+                </li>
+
+                <li>
+                    <a href="patients.html">Patients</a>
+                </li>
+
+                <li>
+                    <a href="doctors.html">Doctors</a>
+                </li>
+
+                <li>
+                    <a href="appointments.html">Appointments</a>
+                </li>
+
+                <li>
+                    <a href="#">Settings</a>
+                </li>
+            </ul>
+        </aside>
+        <main class="main-content">
+            <div class="page-header">
+                <div>
+                    <h1>Doctors</h1>
+                    <p>Manage clinic doctors</p>
+                </div>
+                <button class="primary-btn" id="addDoctorBtn">
+                    + Add Doctor
+                </button>
+            </div>
+            <div class="search-box">
+                <input
+                    type="text"
+                    id="searchDoctor"
+                    placeholder="Search doctor by name or specialization..."
+                >
+            </div>
+            <section class="patient-form-section">
+                <h2>Add New Doctor</h2>
+                <form id="doctorForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="doctorName">
+                                Full Name
+                            </label>
+                            <input type="text" id="doctorName" placeholder="Enter doctor name"required>
+                        </div>
+                        <!-- Specialization -->
+                        <div class="form-group">
+                            <label for="specialization">
+                                Specialization
+                            </label>
+                            <select id="specialization" required>
+                                <option value="">
+                                    Select specialization
+                                </option>
+                                <option value="General Physician">
+                                    General Physician
+                                </option>
+                                <option value="Cardiologist">
+                                    Cardiologist
+                                </option>
+                                <option value="Dermatologist">
+                                    Dermatologist
+                                </option>
+                                <option value="Dentist">
+                                    Dentist
+                                </option>
+                                <option value="Neurologist">
+                                    Neurologist
+                                </option>
+                                <option value="Orthopedic">
+                                    Orthopedic
+                                </option>
+                                <option value="Pediatrician">
+                                    Pediatrician
+                                </option>
+                            </select>
+                        </div>
+                        <!-- Phone -->
+                        <div class="form-group">
+                            <label for="doctorPhone">
+                                Phone
+                            </label>
+                            <input type="tel" id="doctorPhone" placeholder="Enter phone number"required>
+                        </div>
+                        <!-- Email -->
+                        <div class="form-group">
+
+                            <label for="doctorEmail">
+                                Email
+                            </label>
+
+                            <input type="email" id="doctorEmail"placeholder="Enter email" required>
+                        </div>
+                        <!-- Experience -->
+                        <div class="form-group">
+                            <label for="experience">
+                                Experience
+                            </label>
+                            <input type="number" id="experience" placeholder="Years of experience" min="0"required>
+                        </div>
+                        <div class="form-group">
+                            <label for="availableTime">
+                                Available Time
+                            </label>
+                            <input type="text" id="availableTime" placeholder="e.g. 10 AM - 4 PM">
+                        </div>
+                    </div>
+                    <!-- Buttons -->
+                    <div class="form-buttons">
+                        <button type="submit" class="primary-btn">
+                            Add Doctor
+                        </button>
+                        <button type="reset" class="secondary-btn">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </section>
+            <section class="recent-appointments">
+                <div class="table-header">
+                    <h2>Doctor List</h2>
+                    <span id="doctorCount">
+                        0 Doctors
+                    </span>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Specialization</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Experience</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="doctorTableBody">
+                        <!-- Doctors will be added using JavaScript -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
