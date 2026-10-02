@@ -1,87 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clinic Management System</title>
+    <title>Clinic Management System - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 </head>
+
 <body>
+    <div id="toastContainer" class="toast-container"></div>
     <nav class="navbar">
-        <div class="logo">
-            <h2>Clinic Management</h2>
-        </div>
-        <div class="nav-links">
-            <a href="index.html">Dashboard</a>
-            <a href="patients.html">Patients</a>
-            <a href="doctors.html">Doctors</a>
-            <a href="appointments.html">Appointments</a>
-            <a href="#">Logout</a>
+        <a href="index.html" class="nav-brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-hospital"></i>
+            </div>
+            <div class="brand-text">
+                <h2>CityCare Clinic</h2>
+                <span>Management System</span>
+            </div>
+        </a>
+        <div class="nav-actions">
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                <span>System Online</span>
+            </div>
+            <a href="appointments.html" class="btn btn-primary btn-sm">
+                <i class="fa-solid fa-calendar-plus"></i> Book Appointment
+            </a>
+            <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </nav>
     <div class="container">
-        <aside class="sidebar">
-            <h3>Menu</h3>
-                    <a href="index.html">Dashboard</a>
-                    <a href="patients.html">Patients</a>
-                    <a href="doctors.html">Doctors</a>
-                    <a href="appointments.html">Appointments</a>
-                    <a href="#">Settings</a>
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="sidebar-menu-title">Main Menu</div>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="index.html" class="sidebar-link active">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="patients.html" class="sidebar-link">
+                            <i class="fa-solid fa-hospital-user"></i>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctors.html" class="sidebar-link">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            <span>Doctors</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="appointments.html" class="sidebar-link">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+            <div class="sidebar-footer">
+                <div class="clinic-quick-info">
+                    <h4><i class="fa-solid fa-clock-rotate-left"></i> Today's Date</h4>
+                    <p id="currentDateDisplay">Loading...</p>
+                </div>
+            </div>
         </aside>
         <main class="main-content">
-            <h1>Dashboard</h1>
+            <div class="page-header">
+                <div class="page-header-title">
+                    <h1><i class="fa-solid fa-gauge-high text-primary"></i> Clinic Dashboard</h1>
+                    <p>Welcome back! Here is an overview of clinic operations today.</p>
+                </div>
+                <div class="header-action-group">
+                    <a href="patients.html" class="btn btn-secondary">
+                        <i class="fa-solid fa-user-plus"></i> Add Patient
+                    </a>
+                    <a href="doctors.html" class="btn btn-secondary">
+                        <i class="fa-solid fa-stethoscope"></i> Add Doctor
+                    </a>
+                </div>
+            </div>
             <section class="dashboard-cards">
-                <div class="card total-patients">
-                    <h3>Total Patients</h3>
-                    <p>0</p>
+                <div class="stat-card stat-patients">
+                    <div class="stat-info">
+                        <span>Total Patients</span>
+                        <h2 id="statPatients">0</h2>
+                        <small><a href="patients.html" style="color: inherit; text-decoration: underline;">View
+                                directory</a></small>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-hospital-user"></i>
+                    </div>
                 </div>
-                <div class="card total-doctors">
-                    <h3>Total Doctors</h3>
-                    <p>0</p>
+                <div class="stat-card stat-doctors">
+                    <div class="stat-info">
+                        <span>Total Doctors</span>
+                        <h2 id="statDoctors">0</h2>
+                        <small><a href="doctors.html" style="color: inherit; text-decoration: underline;">View
+                                roster</a></small>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-user-doctor"></i>
+                    </div>
                 </div>
-                <div class="card total-appointments">
-                    <h3>Total Appointments</h3>
-                    <p>0</p>
+                <div class="stat-card stat-appointments">
+                    <div class="stat-info">
+                        <span>Total Bookings</span>
+                        <h2 id="statAppointments">0</h2>
+                        <small><a href="appointments.html" style="color: inherit; text-decoration: underline;">Manage
+                                all</a></small>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
                 </div>
-                <div class="card pending-appointments">
-                    <h3>Pending Appointments</h3>
-                    <p>0</p>
+                <div class="stat-card stat-pending">
+                    <div class="stat-info">
+                        <span>Pending Visits</span>
+                        <h2 id="statPending">0</h2>
+                        <small>Awaiting confirmation</small>
+                    </div>
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-clock"></i>
+                    </div>
                 </div>
             </section>
-            <section class="recent-appointments">
-                <h2>Recent Appointments</h2>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Patient</th>
-                            <th>Doctor</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>Rahul</td>
-                            <td>Dr. Sharma</td>
-                            <td>12-08-2026</td>
-                            <td>10:00 AM</td>
-                            <td>Pending</td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>Amit</td>
-                            <td>Dr. Verma</td>
-                            <td>12-08-2026</td>
-                            <td>11:30 AM</td>
-                            <td>Confirmed</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
+            <div class="table-card">
+                <div class="table-card-header">
+                    <h2><i class="fa-solid fa-calendar-week"></i> Recent Appointments</h2>
+                    <a href="appointments.html" class="btn btn-outline btn-sm">
+                        View All Appointments <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Date & Time</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentAppointmentsTableBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 30px;">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading recent appointments...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="flex items-center gap-4 justify-center">
+                <!-- <h6 class="bg-gray-900" Pankaj Yadav</h6> -->
+                <!-- YouTube -->
+                <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition-all duration-300 hover:bg-[#FF0000] hover:text-white hover:scale-110 shadow-sm"
+                    aria-label="YouTube">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z" />
+                    </svg>
+                </a>
+
+                <!-- LinkedIn -->
+                <a href="https://www.linkedin.com/in/pankaj-yadav910/" target="_blank" rel="noopener noreferrer"
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition-all duration-300 hover:bg-[#0A66C2] hover:text-white hover:scale-110 shadow-sm"
+                    aria-label="LinkedIn">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
+                    </svg>
+                </a>
+
+                <!-- GitHub -->
+                <a href="https://github.com/pankaj112-sys/" target="_blank" rel="noopener noreferrer"
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition-all duration-300 hover:bg-[#181717] hover:text-white hover:scale-110 shadow-sm"
+                    aria-label="GitHub">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
+                    </svg>
+                </a>
+
+                <!-- Telegram -->
+                <a href="https://telegram.org" target="_blank" rel="noopener noreferrer"
+                    class="flex h-10 w-10 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition-all duration-300 hover:bg-[#26A5E4] hover:text-white hover:scale-110 shadow-sm"
+                    aria-label="Telegram">
+                    <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.562 8.161c-.18 1.897-.962 6.502-1.359 8.622-.168.9-.5 1.201-.818 1.23-.698.064-1.228-.461-1.901-.903-1.056-.693-1.653-1.124-2.678-1.799-1.185-.781-.417-1.21.258-1.911.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.244-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635.099-.002.321.023.465.141.119.098.152.228.167.323.015.095.032.315.015.485z" />
+                    </svg>
+                </a>
+            </div>
+
+
         </main>
+
     </div>
+
+    <script src="script.js"></script>
 </body>
+
 </html>

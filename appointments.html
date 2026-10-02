@@ -3,184 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Appointments-Clinic Management System</title>
+    <title>Clinic Management System - Appointments</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="patient.css">
 </head>
 <body>
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Navigation Bar -->
     <nav class="navbar">
-        <div class="logo">
-            <h2>Clinic Management</h2>
-        </div>
-        <div class="nav-links">
-            <a href="index.html">Dashboard</a>
-            <a href="patients.html">Patients</a>
-            <a href="doctors.html">Doctors</a>
-            <a href="appointments.html">
-                Appointments
-            </a>
-            <a href="#">Logout</a>
+        <a href="index.html" class="nav-brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-hospital"></i>
+            </div>
+            <div class="brand-text">
+                <h2>CityCare Clinic</h2>
+                <span>Management System</span>
+            </div>
+        </a>
+
+        <div class="nav-actions">
+            <div class="live-badge">
+                <span class="live-dot"></span>
+                <span>System Online</span>
+            </div>
+            <button class="btn btn-primary btn-sm" id="quickNewApptBtn">
+                <i class="fa-solid fa-calendar-plus"></i> New Appointment
+            </button>
+            <button class="mobile-toggle" id="mobileMenuToggle" aria-label="Toggle Menu">
+                <i class="fa-solid fa-bars"></i>
+            </button>
         </div>
     </nav>
+
     <div class="container">
-        <aside class="sidebar">
-            <h3>Menu</h3>
-            <ul>
-                <li>
-                    <a href="index.html">
-                        Dashboard
-                    </a>
-                </li>
-                <li>
-                    <a href="patients.html">
-                        Patients
-                    </a>
-                </li>
-                <li>
-                    <a href="doctors.html">
-                        Doctors
-                    </a>
-                </li>
-                <li>
-                    <a href="appointments.html">
-                        Appointments
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        Settings
-                    </a>
-                </li>
-            </ul>
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="sidebar-menu-title">Main Menu</div>
+                <ul class="sidebar-nav">
+                    <li>
+                        <a href="index.html" class="sidebar-link">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="patients.html" class="sidebar-link">
+                            <i class="fa-solid fa-hospital-user"></i>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctors.html" class="sidebar-link">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            <span>Doctors</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="appointments.html" class="sidebar-link active">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="clinic-quick-info">
+                    <h4><i class="fa-solid fa-calendar-days"></i> Scheduling</h4>
+                    <p>Live booking & calendar</p>
+                </div>
+            </div>
         </aside>
+
+        <!-- Main Content -->
         <main class="main-content">
             <div class="page-header">
-                <div>
-                    <h1>Appointments</h1>
-                    <p>
-                        Manage patient appointments
-                    </p>
+                <div class="page-header-title">
+                    <h1><i class="fa-solid fa-calendar-days"></i> Appointments Management</h1>
+                    <p>Schedule consultations, manage patient queues, and update visit statuses</p>
                 </div>
-                <button class="primary-btn" id="addAppointmentBtn"> New Appointment</button>
+                <button class="btn btn-primary" id="toggleAddAppointmentBtn">
+                    <i class="fa-solid fa-plus"></i> Book New Appointment
+                </button>
             </div>
-            <div class="search-box">
-                <input type="text" id="searchAppointment" placeholder="Search by patient or doctor...">
-            </div>
-            <section class="patient-form-section">
-                <h2>Book New Appointment</h2>
+
+            <!-- Book Appointment Form (Collapsible) -->
+            <section class="form-card" id="appointmentFormSection" style="display: none;">
+                <div class="form-card-header">
+                    <h2><i class="fa-solid fa-calendar-plus"></i> Book Consultation Appointment</h2>
+                    <button type="button" class="btn btn-outline btn-sm" id="closeAddAppointmentBtn">
+                        <i class="fa-solid fa-xmark"></i> Close
+                    </button>
+                </div>
                 <form id="appointmentForm">
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="appointmentPatient">
-                                Patient
-                            </label>
+                            <label for="appointmentPatient">Select Patient <span class="required">*</span></label>
                             <select id="appointmentPatient" required>
-                                <option value=""> Select patient</option>
-                                <option value="Rahul Sharma">Rahul Sharma</option>
-                                <option value="Amit Kumar">
-                                    hello
-                                </option>
-                                <option value="Priya Singh">
-                                    Priya Singh
-                                </option>
+                                <option value="">Loading patients...</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="appointmentDoctor">
-                                Doctor
-                            </label>
+                            <label for="appointmentDoctor">Select Doctor <span class="required">*</span></label>
                             <select id="appointmentDoctor" required>
-                                <option value="">
-                                    Select doctor
-                                </option>
-                                <option value="Dr. Sharma">
-                                    Dr. Sharma
-                                </option>
-                                <option value="Dr. Verma">
-                                    Dr. Verma
-                                </option>
-                                <option value="Dr. Patel">
-                                    Dr. Patel
-                                </option>
+                                <option value="">Loading doctors...</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="appointmentDate">
-                                Appointment Date
-                            </label>
+                            <label for="appointmentDate">Appointment Date <span class="required">*</span></label>
                             <input type="date" id="appointmentDate" required>
                         </div>
                         <div class="form-group">
-                            <label for="appointmentTime">
-                                Appointment Time
-                            </label>
-                            <input type="time" id="appointmentTime" required>
+                            <label for="appointmentTime">Appointment Time <span class="required">*</span></label>
+                            <input type="text" id="appointmentTime" placeholder="e.g. 10:30 AM" required>
                         </div>
                         <div class="form-group">
-                            <label for="appointmentReason">
-                                Reason
-                            </label>
-                            <input type="text" id="appointmentReason" placeholder="Reason for visit" required>
+                            <label for="appointmentReason">Reason for Consultation <span class="required">*</span></label>
+                            <input type="text" id="appointmentReason" placeholder="e.g. Routine checkup, fever, migraine" required>
                         </div>
                         <div class="form-group">
-                            <label for="appointmentStatus">
-                                Status
-                            </label>
-                            <select id="appointmentStatus" required >
-                                <option value="Pending">
-                                    Pending
-                                </option>
-                                <option value="Confirmed">
-                                    Confirmed
-                                </option>
-                                <option value="Completed">
-                                    Completed
-                                </option>
-                                <option value="Cancelled">
-                                    Cancelled
-                                </option>
+                            <label for="appointmentStatus">Initial Status <span class="required">*</span></label>
+                            <select id="appointmentStatus" required>
+                                <option value="Pending">Pending</option>
+                                <option value="Confirmed" selected>Confirmed</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
                             </select>
                         </div>
+                        <div class="form-group col-span-2">
+                            <label for="appointmentNotes">Additional Notes / Symptoms (Optional)</label>
+                            <textarea id="appointmentNotes" placeholder="Any specific symptoms, medical history or patient notes..."></textarea>
+                        </div>
                     </div>
-                    <div class="form-buttons">
-                        <button type="submit" class="primary-btn">
-                            Book Appointment
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-check"></i> Confirm & Book Appointment
                         </button>
-
-                        <button type="reset" class="secondary-btn">
-                            Cancel
+                        <button type="reset" class="btn btn-secondary">
+                            Reset Form
                         </button>
                     </div>
                 </form>
             </section>
-            <!-- Appointment List -->
-            <section class="recent-appointments">
-                <div class="table-header">
-                    <h2>Appointment List</h2>
-                    <span id="appointmentCount">
-                        0 Appointments
-                    </span>
+
+            <!-- Search and Filter Bar -->
+            <div class="filter-bar">
+                <div class="search-input-wrapper">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchAppointment" placeholder="Search by patient, doctor, specialization, reason...">
                 </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Patient</th>
-                            <th>Doctor</th>
-                            <th>Date</th>
-                            <th>Time</th>
-                            <th>Reason</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="appointmentTableBody">
-                        <!-- Appointments will be added using JavaScript -->
-                    </tbody>
-                </table>
-            </section>
+                <div class="filter-controls">
+                    <select id="filterStatus" class="filter-select">
+                        <option value="All">All Statuses</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                    </select>
+                    <button class="btn btn-outline btn-sm" id="refreshAppointmentsBtn">
+                        <i class="fa-solid fa-rotate"></i> Refresh
+                    </button>
+                </div>
+            </div>
+
+            <!-- Appointment List Table -->
+            <div class="table-card">
+                <div class="table-card-header">
+                    <h2><i class="fa-solid fa-calendar-check"></i> Scheduled Appointments</h2>
+                    <span class="badge-count" id="appointmentCount">0 Appointments</span>
+                </div>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#ID</th>
+                                <th>Patient</th>
+                                <th>Doctor</th>
+                                <th>Date & Time</th>
+                                <th>Reason</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="appointmentTableBody">
+                            <tr>
+                                <td colspan="7" style="text-align: center; padding: 30px;">
+                                    <i class="fa-solid fa-spinner fa-spin"></i> Loading appointments...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </main>
     </div>
+
+    <!-- Edit Appointment Modal -->
+    <div class="modal-overlay" id="editAppointmentModal">
+        <div class="modal-dialog">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-calendar-pen"></i> Edit Appointment Details</h3>
+                <button class="modal-close-btn" id="closeEditAppointmentModalBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editAppointmentForm">
+                    <input type="hidden" id="editAppointmentId">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="editApptPatient">Patient <span class="required">*</span></label>
+                            <select id="editApptPatient" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editApptDoctor">Doctor <span class="required">*</span></label>
+                            <select id="editApptDoctor" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="editApptDate">Date <span class="required">*</span></label>
+                            <input type="date" id="editApptDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editApptTime">Time <span class="required">*</span></label>
+                            <input type="text" id="editApptTime" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editApptReason">Reason <span class="required">*</span></label>
+                            <input type="text" id="editApptReason" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="editApptStatus">Status <span class="required">*</span></label>
+                            <select id="editApptStatus" required>
+                                <option value="Pending">Pending</option>
+                                <option value="Confirmed">Confirmed</option>
+                                <option value="Completed">Completed</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-span-2">
+                            <label for="editApptNotes">Notes</label>
+                            <textarea id="editApptNotes"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa-solid fa-save"></i> Save Changes
+                        </button>
+                        <button type="button" class="btn btn-secondary" id="cancelEditAppointmentBtn">
+                            Cancel
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

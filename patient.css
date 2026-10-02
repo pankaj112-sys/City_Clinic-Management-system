@@ -1,291 +1,43 @@
-/* =========================================
-   PATIENT PAGE
-========================================= */
-
-.page-header {
+/* Compatibility styles for patient & component modules */
+.tab-pills {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.page-header h1 {
-    margin: 0;
-    font-size: 32px;
-    color: #172554;
-}
-
-.page-header p {
-    margin-top: 5px;
-    color: #64748b;
-    font-size: 15px;
-}
-
-
-/* =========================================
-   BUTTON
-========================================= */
-
-.primary-btn {
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    padding: 11px 20px;
-    border-radius: 7px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.primary-btn:hover {
-    background-color: #1d4ed8;
-}
-
-.secondary-btn {
-    background-color: #e2e8f0;
-    color: #334155;
-    border: none;
-    padding: 11px 20px;
-    border-radius: 7px;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-.secondary-btn:hover {
-    background-color: #cbd5e1;
-}
-
-
-/* =========================================
-   SEARCH
-========================================= */
-
-.search-box {
-    background: white;
-    padding: 18px;
-    border-radius: 10px;
+    gap: 8px;
     margin-bottom: 20px;
-    border: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
 }
 
-.search-box input {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 15px;
-    border: 1px solid #cbd5e1;
-    border-radius: 7px;
-    font-size: 14px;
-    outline: none;
-}
-
-.search-box input:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-
-/* =========================================
-   PATIENT FORM
-========================================= */
-
-.patient-form-section {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    margin-bottom: 25px;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
-}
-
-.patient-form-section h2 {
-    margin-top: 0;
-    margin-bottom: 25px;
-    color: #172554;
-    font-size: 21px;
-}
-
-
-/* =========================================
-   FORM GRID
-========================================= */
-
-.form-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group label {
-    margin-bottom: 8px;
-    color: #334155;
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px 14px;
-    border: 1px solid #cbd5e1;
-    border-radius: 7px;
-    font-size: 14px;
-    outline: none;
-    background-color: white;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
-}
-
-
-/* =========================================
-   FORM BUTTONS
-========================================= */
-
-.form-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 25px;
-}
-
-
-/* =========================================
-   PATIENT LIST
-========================================= */
-
-.recent-appointments {
-    background-color: white;
-    padding: 25px;
-    border-radius: 12px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
-}
-
-.table-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.table-header h2 {
-    margin: 0;
-    color: #172554;
-    font-size: 21px;
-}
-
-#patientCount {
-    color: #64748b;
-    font-size: 14px;
-}
-
-
-/* =========================================
-   TABLE
-========================================= */
-
-.recent-appointments table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.recent-appointments th {
-    background-color: #f8fafc;
-    color: #475569;
+.tab-pill {
+    padding: 8px 16px;
+    border-radius: var(--radius-sm);
     font-size: 13px;
     font-weight: 600;
-    padding: 14px;
-    text-align: left;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.recent-appointments td {
-    padding: 14px;
-    color: #334155;
-    font-size: 14px;
-    border-bottom: 1px solid #f1f5f9;
-}
-
-.recent-appointments tbody tr:hover {
-    background-color: #f8fafc;
-}
-
-
-/* =========================================
-   EDIT / DELETE BUTTONS
-========================================= */
-
-.edit-btn {
-    background-color: #dbeafe;
-    color: #1d4ed8;
+    color: var(--text-secondary);
+    background: none;
     border: none;
-    padding: 7px 12px;
-    border-radius: 5px;
     cursor: pointer;
-    margin-right: 5px;
+    transition: var(--transition);
 }
 
-.delete-btn {
-    background-color: #fee2e2;
-    color: #dc2626;
-    border: none;
-    padding: 7px 12px;
-    border-radius: 5px;
-    cursor: pointer;
+.tab-pill:hover {
+    background-color: var(--border-light);
+    color: var(--text-primary);
 }
 
-.edit-btn:hover {
-    background-color: #bfdbfe;
+.tab-pill.active {
+    background-color: var(--primary-light);
+    color: var(--primary);
 }
 
-.delete-btn:hover {
-    background-color: #fecaca;
-}
-
-
-/* =========================================
-   RESPONSIVE
-========================================= */
-
-@media (max-width: 768px) {
-
-    .page-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 15px;
-    }
-
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .patient-form-section,
-    .recent-appointments {
-        padding: 18px;
-    }
-
-    .form-buttons {
-        flex-direction: column;
-    }
-
-    .form-buttons button {
-        width: 100%;
-    }
-
-    .recent-appointments {
-        overflow-x: auto;
-    }
-
-    .recent-appointments table {
-        min-width: 700px;
-    }
+.patient-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #e0f2fe;
+    color: #0369a1;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
 }
